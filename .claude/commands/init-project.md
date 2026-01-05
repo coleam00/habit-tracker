@@ -1,14 +1,16 @@
 # Initialize Project
 
-Set up and start the Habit Tracker application locally.
+Set up and start the project locally.
 
 ## 1. Install Backend Dependencies
 
 ```bash
+# Example for Python with uv:
 cd backend && uv sync
-```
 
-Installs all Python packages including dev dependencies (pytest, ruff, httpx).
+# Example for Node.js:
+cd backend && npm install
+```
 
 ## 2. Install Frontend Dependencies
 
@@ -16,50 +18,38 @@ Installs all Python packages including dev dependencies (pytest, ruff, httpx).
 cd frontend && npm install
 ```
 
-Installs React, Vite, TanStack Query, Tailwind CSS, and other frontend packages.
-
 ## 3. Start Backend Server
 
 ```bash
+# Example for Python/FastAPI:
 cd backend && uv run uvicorn app.main:app --reload --port 8000
+
+# Example for Node.js/Express:
+cd backend && npm run dev
 ```
 
-Starts FastAPI server with hot-reload on port 8000. SQLite database (habits.db) is created automatically on first run.
-
-## 4. Start Frontend Server (new terminal)
+## 4. Start Frontend Server
 
 ```bash
 cd frontend && npm run dev
 ```
 
-Starts Vite dev server on port 5173.
-
 ## 5. Validate Setup
 
-Check that everything is working:
-
 ```bash
-# Test API health
-curl -s http://localhost:8000/api/habits
+# Test that the API is responding
+curl -s http://localhost:8000/health
 
-# Check Swagger docs load
-curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:8000/docs
+# Or check the main endpoint
+curl -s http://localhost:8000/api/...
 ```
 
 ## Access Points
 
-- **Frontend**: http://localhost:5173
-- **Backend API**: http://localhost:8000
-- **API Docs (Swagger)**: http://localhost:8000/docs
-
-## Cleanup
-
-To stop services:
-- Backend: Ctrl+C in terminal
-- Frontend: Ctrl+C in terminal
+- **Frontend**: http://localhost:5173 (or your configured port)
+- **Backend API**: http://localhost:8000 (or your configured port)
+- **API Docs**: http://localhost:8000/docs (if using FastAPI)
 
 ## Notes
 
-- No environment file (.env) required - uses SQLite with sensible defaults
-- Database file created at `backend/habits.db` on first API call
-- Backend and frontend can be started in any order
+<!-- Add project-specific notes about initialization here -->

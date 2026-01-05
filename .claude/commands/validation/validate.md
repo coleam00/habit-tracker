@@ -1,77 +1,72 @@
-Run comprehensive validation of the Habit Tracker project.
+Run comprehensive validation of the project.
 
 Execute the following commands in sequence and report results:
 
-## 1. Backend Linting
+## 1. Linting
 
 ```bash
+# Python (ruff):
 cd backend && uv run ruff check .
+
+# JavaScript/TypeScript (eslint):
+cd frontend && npm run lint
 ```
 
-**Expected:** "All checks passed!" or no output (clean)
+**Expected:** No linting errors
 
-## 2. Backend Tests
+## 2. Type Checking (if applicable)
 
 ```bash
+# Python (mypy):
+cd backend && uv run mypy app/
+
+# TypeScript:
+cd frontend && npm run typecheck
+```
+
+**Expected:** No type errors
+
+## 3. Unit Tests
+
+```bash
+# Python (pytest):
 cd backend && uv run pytest -v
+
+# JavaScript (vitest/jest):
+cd frontend && npm test
 ```
 
-**Expected:** All tests pass, execution time < 5 seconds
+**Expected:** All tests pass
 
-## 3. Backend Tests with Coverage
+## 4. Test Coverage
 
 ```bash
+# Python:
 cd backend && uv run pytest --cov=app --cov-report=term-missing
+
+# JavaScript:
+cd frontend && npm run test:coverage
 ```
 
-**Expected:** Coverage >= 80% (configured in pyproject.toml)
+**Expected:** Coverage meets project threshold
 
-## 4. Frontend Build
+## 5. Build
 
 ```bash
 cd frontend && npm run build
 ```
 
-**Expected:** Build completes successfully, outputs to `dist/` directory
-
-## 5. Local Server Validation (Optional)
-
-If backend is not already running, start it:
-
-```bash
-cd backend && uv run uvicorn app.main:app --port 8000 &
-```
-
-Wait 2 seconds for startup, then test:
-
-```bash
-# Test habits endpoint
-curl -s http://localhost:8000/api/habits | head -c 200
-
-# Check API docs
-curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" http://localhost:8000/docs
-```
-
-**Expected:** JSON response from habits endpoint, HTTP 200 from docs
-
-Stop the server if started:
-
-```bash
-# Windows
-taskkill /F /IM uvicorn.exe 2>nul || true
-
-# Linux/Mac
-lsof -ti:8000 | xargs kill -9 2>/dev/null || true
-```
+**Expected:** Build completes successfully
 
 ## 6. Summary Report
 
 After all validations complete, provide a summary report with:
 
 - Linting status
+- Type checking status (if applicable)
 - Tests passed/failed
 - Coverage percentage
-- Frontend build status
+- Build status
 - Any errors or warnings encountered
 - Overall health assessment (PASS/FAIL)
 

@@ -1,106 +1,24 @@
-# Habit Tracker
+# Workshop Template
 
-A personal habit tracking web application for building and maintaining daily habits through streak tracking, completion rates, and calendar visualization. Built with FastAPI (Python) backend and React frontend, this local-first application runs entirely on your machine with no account required—just simple, distraction-free habit tracking.
+This is a template repository for the Claude Code workshop. It contains the scaffolding and slash commands needed to build a full-stack application with Claude Code.
 
-## Prerequisites
+## What's Included
 
-- **Python 3.11+** with [uv](https://github.com/astral-sh/uv) package manager
-- **Node.js 18+** with npm
-- **Git** (optional, for cloning)
+- **`.claude/commands/`** - Slash commands for planning, execution, validation, and workflow automation
+- **`.claude/reference/`** - Best practices documentation for various technologies
+- **`CLAUDE.md`** - Template for project-specific instructions (fill this in as you build)
 
-## Quick Start
+## Getting Started
 
-### 1. Clone and Setup Backend
-
-```bash
-cd backend
-uv sync
-uv run uvicorn app.main:app --reload --port 8000
-```
-
-Backend runs at http://localhost:8000 (API docs at http://localhost:8000/docs)
-
-### 2. Setup Frontend (new terminal)
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs at http://localhost:5173
-
-### 3. Open the App
-
-Navigate to **http://localhost:5173** in your browser. Create your first habit and start tracking!
-
-## Architecture
-
-```
-┌─────────────────┐     HTTP/JSON      ┌─────────────────┐
-│  React + Vite   │ ◄───────────────► │    FastAPI      │
-│   Port 5173     │                    │   Port 8000     │
-└─────────────────┘                    └────────┬────────┘
-                                                │
-                                       ┌─────────────────┐
-                                       │     SQLite      │
-                                       │   habits.db     │
-                                       └─────────────────┘
-```
-
-### Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Backend | Python 3.11, FastAPI, SQLAlchemy, SQLite |
-| Frontend | React 18, Vite, TanStack Query, Tailwind CSS |
-| Date Handling | date-fns |
-
-### Project Structure
-
-```
-habit-tracker/
-├── backend/
-│   ├── app/
-│   │   ├── main.py           # FastAPI entry point
-│   │   ├── database.py       # SQLite connection
-│   │   ├── models.py         # SQLAlchemy models (Habit, Completion)
-│   │   ├── schemas.py        # Pydantic request/response schemas
-│   │   └── routers/          # API endpoints
-│   │       ├── habits.py     # CRUD + streak calculation
-│   │       └── completions.py
-│   └── tests/                # pytest tests
-├── frontend/
-│   ├── src/
-│   │   ├── features/
-│   │   │   ├── habits/       # Habit components, hooks, API
-│   │   │   └── calendar/     # Calendar view components
-│   │   ├── components/ui/    # Shared UI components
-│   │   ├── pages/            # Route pages
-│   │   └── lib/              # Utilities
-│   └── package.json
-└── README.md
-```
-
-## Features
-
-- **Daily Habit Tracking** — Create habits, mark them complete with one click
-- **Streak Tracking** — See current streak and completion rate per habit
-- **Calendar View** — Monthly grid showing completion history with color-coded days
-- **Planned Absences** — Skip days without breaking your streak
-- **Local & Private** — All data stored locally in SQLite, no account needed
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/habits` | List all habits with stats |
-| POST | `/api/habits` | Create a new habit |
-| POST | `/api/habits/{id}/complete` | Mark habit complete for a date |
-| DELETE | `/api/habits/{id}/completions/{date}` | Undo a completion |
-| GET | `/api/habits/{id}/completions` | Get completion history |
-
-Full API documentation available at http://localhost:8000/docs when backend is running.
+1. **Fork or clone** this repository
+2. **Define your project** — Have a conversation with your AI coding assistant about what you want to build. Discuss requirements, features, and technical decisions.
+3. **Create your PRD** — Run `/create-prd` to generate a Product Requirements Document based on your conversation
+4. **Build your CLAUDE.md** — Work with the AI assistant to fill in the `CLAUDE.md` template with your project's tech stack, structure, conventions, and commands
+5. **Create reference documents** — Add detailed guides to `.claude/reference/` for specific parts of your codebase (e.g., API patterns, database conventions, deployment strategies). Keep your `CLAUDE.md` concise and point to these references when needed — this prevents overwhelming the LLM with context while still giving detailed guidance when working on specific areas.
+6. **Start building** — Use the development workflow:
+   - `/core_piv_loop:prime` — Load project context
+   - `/core_piv_loop:plan-feature` — Create an implementation plan for a feature
+   - `/core_piv_loop:execute` — Execute the plan step-by-step
 
 ## Claude Commands
 
@@ -116,7 +34,7 @@ Slash commands for Claude Code to assist with development workflows.
 ### Validation
 | Command | Description |
 |---------|-------------|
-| `/validation:validate` | Run full validation: tests, linting, coverage, frontend build |
+| `/validation:validate` | Run full validation: tests, linting, coverage, build (customize to your project) |
 | `/validation:code-review` | Technical code review on changed files |
 | `/validation:code-review-fix` | Fix issues found in code review |
 | `/validation:execution-report` | Generate report after implementing a feature |
@@ -132,5 +50,5 @@ Slash commands for Claude Code to assist with development workflows.
 | Command | Description |
 |---------|-------------|
 | `/commit` | Create atomic commit with appropriate tag (feat, fix, docs, etc.) |
-| `/init-project` | Install dependencies, start backend and frontend servers |
+| `/init-project` | Install dependencies and start development servers (customize this to your project) |
 | `/create-prd` | Generate Product Requirements Document from conversation |
