@@ -6,7 +6,7 @@ A personal habit tracking web application for building and maintaining daily hab
 
 ## Prerequisites
 
-- **Python 3.11+** with [uv](https://github.com/astral-sh/uv) package manager
+- **Python 3.9+** with [uv](https://github.com/astral-sh/uv) package manager (or pip)
 - **Node.js 18+** with npm
 - **Git** (optional, for cloning)
 
@@ -16,8 +16,15 @@ A personal habit tracking web application for building and maintaining daily hab
 
 ```bash
 cd backend
+# If using uv (recommended):
 uv sync
 uv run uvicorn app.main:app --reload --port 8000
+
+# OR if using pip and venv:
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -e .
+uvicorn app.main:app --reload --port 8000
 ```
 
 Backend runs at http://localhost:8000 (API docs at http://localhost:8000/docs)
@@ -47,7 +54,7 @@ Navigate to **http://localhost:5173** in your browser. Create your first habit a
                                        ┌─────────────────┐
                                        │     SQLite      │
                                        │   habits.db     │
-                                       └─────────────────┘
+                     9+                └─────────────────┘
 ```
 
 ### Tech Stack

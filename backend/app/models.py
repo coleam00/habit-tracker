@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Optional
+
 from sqlalchemy import CheckConstraint, ForeignKey, Index, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -11,10 +15,10 @@ class Habit(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
-    description: Mapped[str | None] = mapped_column(String(500))
+    description: Mapped[Optional[str]] = mapped_column(String(500))
     color: Mapped[str] = mapped_column(String(7), default="#10B981")
     created_at: Mapped[str] = mapped_column(String(19), nullable=False)  # ISO datetime
-    archived_at: Mapped[str | None] = mapped_column(String(19))  # ISO datetime
+    archived_at: Mapped[Optional[str]] = mapped_column(String(19))  # ISO datetime
 
     completions: Mapped[list["Completion"]] = relationship(
         back_populates="habit",
@@ -37,7 +41,7 @@ class Completion(Base):
     )
     completed_date: Mapped[str] = mapped_column(String(10), nullable=False)  # YYYY-MM-DD
     status: Mapped[str] = mapped_column(String(10), default="completed")  # completed, skipped
-    notes: Mapped[str | None] = mapped_column(String(500))
+    notes: Mapped[Optional[str]] = mapped_column(String(500))
     created_at: Mapped[str] = mapped_column(String(19), nullable=False)  # ISO datetime
 
     habit: Mapped["Habit"] = relationship(back_populates="completions")

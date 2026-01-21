@@ -1,10 +1,11 @@
 import logging
 import sys
+from typing import Optional
 
 import structlog
 
 
-def configure_logging(json_format: bool | None = None) -> None:
+def configure_logging(json_format: Optional[bool] = None) -> None:
     """Configure structlog for the application.
 
     Args:

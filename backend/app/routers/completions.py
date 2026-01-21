@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, Optional
 
 import structlog
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -150,8 +152,8 @@ def delete_completion(
 def get_completions(
     habit_id: int,
     db: Annotated[Session, Depends(get_db)],
-    start: Annotated[str | None, Query(pattern=r"^\d{4}-\d{2}-\d{2}$")] = None,
-    end: Annotated[str | None, Query(pattern=r"^\d{4}-\d{2}-\d{2}$")] = None,
+    start: Annotated[Optional[str], Query(pattern=r"^\d{4}-\d{2}-\d{2}$")] = None,
+    end: Annotated[Optional[str], Query(pattern=r"^\d{4}-\d{2}-\d{2}$")] = None,
 ) -> CompletionListResponse:
     """Get completion history for a habit with optional date filtering."""
     habit = get_habit_or_404(habit_id, db)

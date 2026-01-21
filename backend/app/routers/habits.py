@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from datetime import date, datetime, timedelta
-from typing import Annotated
+from typing import Annotated, Optional
 
 import structlog
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -131,7 +133,7 @@ def is_completed_today(completions: list[Completion], today: date) -> bool:
     return any(c.completed_date == today_str and c.status == "completed" for c in completions)
 
 
-def build_habit_response(habit: Habit, today: date | None = None) -> HabitResponse:
+def build_habit_response(habit: Habit, today: Optional[date] = None) -> HabitResponse:
     """Build a HabitResponse with calculated stats."""
     if today is None:
         today = date.today()
